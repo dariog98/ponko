@@ -1,0 +1,116 @@
+/* -------------------------------------------------- Vollkorn */
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url("../public/fonts/Ubuntu\ Mono\ Nerd\ Font\ Complete\ Mono.ttf");
+}
+
+/* -------------------------------------------------- Optica Icons */
+@font-face{
+    font-family: "Optica Icons";
+    src: url(data:application/x-font-woff;charset=utf-8;base64,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) format("woff")
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Cantarell";
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.gap-025 {
+    gap: 0.25rem;
+}
+
+.gap-05 {
+    gap: 0.5rem;
+}
+
+.gap-1 {
+    gap: 1rem;
+}
+
+.justify-content-start {
+    justify-content: flex-start;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.align-content-start {
+    align-content: flex-start;
+}
+
+.align-content-center {
+    align-content: center;
+}
+
+.align-content-end {
+    align-content: flex-start;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.hidden {
+    display: none;
+}
+
+.padding-1 {
+    padding: 1rem;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}

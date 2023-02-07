@@ -2,7 +2,7 @@ import { check } from "express-validator";
 import { validateResult } from "../helpers/validateHelper.js";
 
 const validateCreate = [
-    check('idUser')
+    check('userId')
         .exists()
         .isNumeric()
         .not()

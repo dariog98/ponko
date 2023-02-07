@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
-import NewPostPage from './pages/NewPostPage'
 import PostPage from './pages/PostPage'
 import PostsPage from './pages/PostsPage'
 import UserPage from './pages/UserPage'
@@ -21,7 +20,6 @@ function App() {
                         <Route path="/:username/*" element={ <UserPage/> }/>
                         <Route path="/:username/posts/:id" element={ <PostPage/> }/>
                         <Route path="/blog/:id" element={ <div></div> }/>
-                        <Route path="/post/new" element={ <NewPostPage/> }/>
                     </Routes>
                 </Router>
             </UserProvider>

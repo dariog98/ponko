@@ -1,20 +1,23 @@
 import { useRef, useState } from 'react'
-import ImagePreviewViewer from '../components/posts/ImageViewer/ImagePreviewViewer';
+import { useUserContext } from '../providers/UserProvider';
+import ImagePreviewViewer from './posts/ImageViewer/ImagePreviewViewer';
+import postServices from '../services/posts';
 
-function PostForm() {
+function PostForm({ handlePosts }) {
+    const user = useUserContext()
     const hiddenFileInput = useRef(null)
   
-    const [body, setBody] = useState("")
+    const [content, setContent] = useState("")
     const [images, setImages] = useState([])
-    const [tags] = useState([])
+    const [tags, setTags] = useState([])
 
     const handleDelete = (elementIndex) => {
         const newImages = images.filter((image, index) => index !== elementIndex)
         setImages(newImages)
     }
 
-    const handleBodyChange = (event) => {
-        setBody(event.target.value)
+    const handleContentChange = (event) => {
+        setContent(event.target.value)
     }
 
     /*
@@ -49,7 +52,7 @@ function PostForm() {
 
     */
 
-    const handleAddImageClick = (event) => {
+    const handleAddImageClick = () => {
         hiddenFileInput.current.click()
     }
 
@@ -73,15 +76,33 @@ function PostForm() {
         }
     }
 
-    const handleSend = (event) => {
-        const post = {body, images, tags}
-        console.log(post)
+    const handleSend = async () => {
+        const post = {
+            content,
+            images,
+            tags,
+            userId: user.id
+        }
+        try {
+            const response = await postServices.createPost(post, user.token)
+            if (response.ok) {
+                const post = await response.json()
+                handlePosts(post)
+                setContent("")
+                setImages([])
+                setTags([])
+            } else {
+              console.log(response)
+            }
+        } catch (error) {
+            console.log('fetchPost: ' + error.message)
+        }
     }
 
     return (
         <div className="post">
             <div className="post-content">
-                <textarea className="post-textarea" rows="5" value={body} placeholder="Write you text here..." onChange={handleBodyChange}/>
+                <textarea className="post-textarea" rows="5" value={content} placeholder="Write you text here..." onChange={handleContentChange}/>
 
                 {images.map((image, index) => <ImagePreviewViewer key={index} image={image} onDelete={() => handleDelete(index)}/>)}
 

@@ -90,13 +90,30 @@ const getPost = async (request, response) => {
 
 const createPost = async (request, response) => {
     try {
-        const { idUser, content } = request.body
+        const { userId, content } = request.body
 
-        const post = await Post.create({
-            idUser,
+        const result = await Post.create({
+            userId,
             content
         })
-        response.send(post)
+
+        if (result) {
+            const post = await Post.findOne({
+                where: { id: result.id, userId: result.userId },
+                include: [
+                    {model: User, include: [{model: UserImage, include: [{model: Image}], as: "avatar"}]}, 
+                    {model: Post, as: "comments", include: [
+                        {model: User, include: [{model: UserImage, include: [{model: Image}], as: "avatar"}]}, 
+                        {model: Post, as: "comments"},
+                        {model: Like, as: "likes"},
+                        {model: Shared, as: "shareds"}
+                    ]},
+                    {model: Like, as: "likes", include: ["user"]},
+                    {model: Shared, as: "shareds", include: ["user"]}
+                ]
+            })
+            response.send(post)
+        }
     } catch (error) {
         httpError(response, error)
     }

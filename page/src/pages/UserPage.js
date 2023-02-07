@@ -1,12 +1,16 @@
-import Post from "../components/Post"
 import {useState, useEffect } from 'react'
-import PostForm from "./NewPostPage"
-import postServices from "../services/posts"
 import { useParams } from "react-router-dom"
+import postServices from "../services/posts"
+import PostForm from "../components/PostForm"
+import Post from "../components/Post"
 
 const UserPage = () => {
     const params = useParams()
     const [posts, setPosts] = useState([])
+
+    const handlePosts = (newPost) => {
+        setPosts([ newPost, ...posts ])
+    }
 
     const fetchPosts = async () => {
         try {
@@ -28,7 +32,7 @@ const UserPage = () => {
 
     return (
         <div className="flex flex-column justify-content-center align-items-center padding-1 gap-1">
-            <PostForm/>
+            <PostForm handlePosts={handlePosts}/>
             {posts.map((post, index)=> <Post key={index} data={post}/>)}
         </div>
     )

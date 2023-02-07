@@ -48,15 +48,15 @@ const getPost = (username, id) => {
     return request
 }
 
-const createPost = (post) => {
+const createPost = (post, token) => {
     const config = {
         method: 'POST', 
         mode: 'cors',
-        /*
         headers: {
-            Authorization: token
-        }*/
-        body: post
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(post)
     }
 
     const request = fetch(RouteAPI.Posts, config)
